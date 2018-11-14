@@ -1,4 +1,4 @@
-#Feed Reader Testing
+##Feed Reader Testing
 
 With this project an attempt to test an web-page which loads feeds using the Google Feed Reader API. The API needs the url from which to load the feeds from. The tests verify the default state of the page, menus, feed content refresh etc.
 
