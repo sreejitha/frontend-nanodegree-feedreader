@@ -79,8 +79,9 @@ $(function() {
   describe('Initial Entries', function() {
 
     beforeEach(function(done) {
-
-      loadFeed(0, function() {
+    //loadFeed function makes an API call to the url with the index in the argument to load feeds from
+      loadFeed(0, function()
+      //used done in the function body to signal that it is an asynchronous function
         done();
       });
     });
@@ -91,6 +92,7 @@ $(function() {
      * the use of Jasmine's beforeEach and asynchronous done() function.
      */
     it('atleast one entry on calling loadFeed function', function(done) {
+      //expecting that atleast 1 feed is returned as a result of the API call
       expect(allFeeds.length).not.toBeLessThan(1);
       done();
     });
@@ -101,13 +103,14 @@ $(function() {
   describe('New Feed Selection', function() {
     var lastFeed1, lastFeed2;
     beforeEach(function(done) {
-
       loadFeed(0, function() {
+        //assigning the first feed from the result set of the API call to the url with index 0
         lastFeed1 = $('.feed').find('.entry-link')[0];
         done();
       });
 
       loadFeed(1, function() {
+          //assigning the first feed from the result set of the API call to the url with index 1
         lastFeed2 =  $('.feed').find('.entry-link')[0];
         done();
       });
@@ -122,6 +125,7 @@ $(function() {
       done();
       expect(lastFeed2).toBeDefined();
       done();
+      //expecting the result-sets from the 2 API calls to different urls to differ, which means content is refreshed
       expect(lastFeed1.href).not.toBe(lastFeed2.href);
 
     });
