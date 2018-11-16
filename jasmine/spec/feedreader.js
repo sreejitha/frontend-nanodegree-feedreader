@@ -79,9 +79,9 @@ $(function() {
   describe('Initial Entries', function() {
 
     beforeEach(function(done) {
-    //loadFeed function makes an API call to the url with the index in the argument to load feeds from
-      loadFeed(0, function()
-      //used done in the function body to signal that it is an asynchronous function
+      //loadFeed function makes an API call to the url with the index in the argument to load feeds from
+      loadFeed(0, function() {
+        //used done in the function body to signal that it is an asynchronous function
         done();
       });
     });
@@ -91,10 +91,15 @@ $(function() {
      * Remember, loadFeed() is asynchronous so this test will require
      * the use of Jasmine's beforeEach and asynchronous done() function.
      */
-    it('atleast one entry on calling loadFeed function', function(done) {
-      //expecting that atleast 1 feed is returned as a result of the API call
-      expect(allFeeds.length).not.toBeLessThan(1);
-      done();
+    it('atleast one entry on calling loadFeed function', function() {
+      //expecting that atleast 1 entry is returned as a result of the API call
+      let firstFeed = $('.feed').find('.entry-link')[0];
+      let firstEntry = $(firstFeed).find('.entry');
+      let entryTitle = $(firstEntry).find('h2');
+      expect(firstEntry).toBeDefined();
+      //expecting the entry to have some text content
+      expect(entryTitle).toBeDefined();
+      expect(entryTitle.textContent).not.toBe('');
     });
   });
 
@@ -106,25 +111,21 @@ $(function() {
       loadFeed(0, function() {
         //assigning the first feed from the result set of the API call to the url with index 0
         lastFeed1 = $('.feed').find('.entry-link')[0];
-        done();
-      });
-
-      loadFeed(1, function() {
+        loadFeed(1, function() {
           //assigning the first feed from the result set of the API call to the url with index 1
-        lastFeed2 =  $('.feed').find('.entry-link')[0];
-        done();
+          lastFeed2 = $('.feed').find('.entry-link')[0];
+          done();
+        });
       });
-
     });
+
     /* A test that ensures when a new feed is loaded
      * by the loadFeed function that the content actually changes.
      * Remember, loadFeed() is asynchronous.
      */
-      it('content changes on calling loadFeed function', function(done) {
+    it('content changes on calling loadFeed function', function() {
       expect(lastFeed1).toBeDefined();
-      done();
       expect(lastFeed2).toBeDefined();
-      done();
       //expecting the result-sets from the 2 API calls to different urls to differ, which means content is refreshed
       expect(lastFeed1.href).not.toBe(lastFeed2.href);
 
